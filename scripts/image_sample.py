@@ -42,11 +42,6 @@ def main(args):
         transforms.ToTensor(),
         tr_normalize,
     ])
-    
-    val_dataset_small = datasets.ImageFolder(args.data_dir, transform=transform_zoom)
-    data = DataLoader(
-        val_dataset_small, batch_size=1, shuffle=False, num_workers=4, drop_last=False
-    )
 
     logger.log("Load data...")
     data = load_data(

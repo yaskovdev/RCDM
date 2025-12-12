@@ -5,7 +5,6 @@ import threading
 
 import numpy as np
 import torch as th
-from torch._C import has_mkldnn
 import torch.nn as nn
 import torch.nn.functional as F
 

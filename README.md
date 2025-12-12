@@ -1,3 +1,26 @@
+# An Attempt to Create a Decoder for I-JEPA
+
+An attempt to create a decoder for [I-JEPA](https://github.com/facebookresearch/ijepa) based on RCDM, work in progress.
+
+Models requiring `vissl` currently can't be sampled from.
+
+Sample on Windows:
+
+```powershell
+# Start Anaconda Prompt
+
+conda create -n rcdm python=3.12
+conda activate rcdm
+
+# Taken from https://pytorch.org/get-started/locally/, to pick CUDA version check it with `nvidia-smi` command
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+
+cd C:\dev\git_home\RCDM
+pip install -e .
+
+python scripts/image_sample.py --attention_resolutions 32,16,8 --class_cond False --diffusion_steps 1000 --image_size 128 --learn_sigma True --noise_schedule linear --num_channels 256 --num_heads 4 --num_res_blocks 2 --resblock_updown True --use_fp16 False --use_scale_shift_norm True --batch_size 8 --num_images 1 --timestep_respacing 100 --data_dir "c:\dev\rcdm_images_3" --type_model supervised
+```
+
 # Representation Conditional Diffusion Model (RCDM)
 
 ![RCDM's samples of earth](images/RCDM_front.png?raw=true "samples earth")
