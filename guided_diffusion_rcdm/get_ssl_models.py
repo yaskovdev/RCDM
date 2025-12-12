@@ -90,6 +90,9 @@ class Normalize(nn.Module):
         return x
 
 def get_model(model="dino", use_head=False):
+    # TODO: is use_head always False on sampling?
+    # Probably it is in the serialized model (DINO and others) because it was used during training, but it's not required during sampling.
+    # Check in the article.
     '''
     Select a model that will be used to compute the embeddings needed by RCDM.
     You can use any kind of model, ConvNets/MLPs, or VITs.

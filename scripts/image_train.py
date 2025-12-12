@@ -85,6 +85,7 @@ def load_ssl_data(args, ssl_model=None):
             with th.no_grad():
                 with autocast(args.use_fp16):
                     # we always use an image of size 224x224 for conditioning
+                    # Here we actually give an image to the SSL model and get back the representation of the image
                     model_kwargs["feat"] = ssl_model(batch_big.to(args.gpu)).detach()
             yield batch, model_kwargs
         else:
