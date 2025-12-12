@@ -7,7 +7,7 @@ Models requiring `vissl` currently can't be sampled from.
 Sample on Windows:
 
 ```powershell
-# Start Anaconda Prompt
+# Start Anaconda Prompt (tested with Miniconda 23.7.4)
 
 conda create -n rcdm python=3.12
 conda activate rcdm
