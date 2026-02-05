@@ -4,7 +4,7 @@ An attempt to create a decoder for [I-JEPA](https://github.com/facebookresearch/
 
 Models requiring `vissl` currently can't be sampled from.
 
-Sample on Windows:
+## Sample on Windows
 
 ```powershell
 # Start Anaconda Prompt (tested with Miniconda 23.7.4)
@@ -22,6 +22,28 @@ python scripts/image_sample.py --attention_resolutions 32,16,8 --class_cond Fals
 ```
 
 Tried with `--type_model dino` as well.
+
+## Sample Using PyCharm on macOS with Remote Linux Interpreter
+
+```shell
+# Run the below commands on the Linux machine.
+# Tested with "Linux pop-os 6.9.3-76060903-generic #202405300957~1726766035~22.04~4092a0e SMP PREEMPT_DYNAMIC Thu S x86_64 x86_64 x86_64 GNU/Linux" and "conda 25.11.1".
+
+conda create -n rcdm python=3.12
+conda activate rcdm
+
+# Taken from https://pytorch.org/get-started/locally/, to pick CUDA version check it with `nvidia-smi` command.
+# Or, actually, that's probably not the real CUDA version, see https://stackoverflow.com/a/55717476/1862286.
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+
+cd /tmp/pycharm_project_913 # This is what you've specified in the "Sync folders" while creating your SSH interpreter in PyCharm
+pip install -e .
+
+# Note: Make sure that the `/home/yaskovdev/rcdm_images` contains at least one image, otherwise sampling will get stuck.
+python scripts/image_sample.py --attention_resolutions 32,16,8 --class_cond False --diffusion_steps 1000 --image_size 128 --learn_sigma True --noise_schedule linear --num_channels 256 --num_heads 4 --num_res_blocks 2 --resblock_updown True --use_fp16 False --use_scale_shift_norm True --batch_size 8 --num_images 1 --timestep_respacing 100 --data_dir "/home/yaskovdev/rcdm_images" --type_model supervised
+```
+
+You can then run `scp yaskovdev@192.168.1.186:/tmp/pycharm_project_913/samples.jpeg ~/Downloads` on macOS.
 
 # Train
 
