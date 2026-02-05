@@ -23,6 +23,14 @@ python scripts/image_sample.py --attention_resolutions 32,16,8 --class_cond Fals
 
 Tried with `--type_model dino` as well.
 
+# Train
+
+```powershell
+# Start Anaconda Prompt (tested with Miniconda 23.7.4)
+
+python scripts/image_train.py
+```
+
 # Representation Conditional Diffusion Model (RCDM)
 
 ![RCDM's samples of earth](images/RCDM_front.png?raw=true "samples earth")
