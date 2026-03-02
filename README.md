@@ -24,16 +24,24 @@ pip install -e .
 python scripts/image_sample.py --attention_resolutions 32,16,8 --class_cond False --diffusion_steps 1000 --image_size 128 --learn_sigma True --noise_schedule linear --num_channels 256 --num_heads 4 --num_res_blocks 2 --resblock_updown True --use_fp16 False --use_scale_shift_norm True --batch_size 8 --num_images 1 --timestep_respacing 100 --data_dir "/home/yaskovdev/rcdm_images" --type_model supervised
 ```
 
-You can then run `scp yaskovdev@192.168.1.186:/tmp/pycharm_project_931/samples.jpeg ~/Downloads` on macOS.
+You can then run `scp yaskovdev@192.168.1.186:/home/yaskovdev/rcdm/samples.jpeg ~/Downloads/rcdm_samples` on macOS.
 
 # Train Using PyCharm on macOS with Remote Linux Interpreter
 
 Extract the images (TODO: specify the URL to the dataset) to a `/home/yaskovdev/images` folder.
 
-```powershell
+```shell
 # Run the below commands on the Linux machine.
 
-python scripts/image_train.py --type_model dino --data_dir /home/yaskovdev/images
+export MODEL_FLAGS_128="--attention_resolutions 32,16,8 --class_cond False --diffusion_steps 1000 --image_size 128 --learn_sigma True --noise_schedule linear --num_channels 256 --num_heads 4 --num_res_blocks 2 --resblock_updown True --use_fp16 False --use_scale_shift_norm True"
+export TRAIN_FLAGS="--lr 1e-4 --batch_size 8"
+
+python scripts/image_train.py $MODEL_FLAGS_128 $TRAIN_FLAGS --feat_cond --data_dir /home/yaskovdev/images --type_model dino --out_dir /home/yaskovdev/save_dir
+
+# If you interrupted the training earlier, you can resume by passing resume_checkpoint
+
+# Sample from the trained model:
+python scripts/image_sample.py $MODEL_FLAGS_128 --batch_size 8 --num_images 1 --timestep_respacing 100 --data_dir "/home/yaskovdev/rcdm_images" --model_path /home/yaskovdev/save_dir/model010000.pt --type_model dino
 ```
 
 ## Sample on Windows
