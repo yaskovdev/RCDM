@@ -51,8 +51,8 @@ class RCDM(nn.Module):
         with autocast():
             list_samples = []
             for _ in range(batch.size(0)):
-                # Generate num_samples from this representation
-                feat = self.ssl_model(batch).detach()
+                # [Ask the RCDM model to] Generate num_samples from this representation [that the ssl_model produces]
+                feat = self.ssl_model(batch).detach() # TODO: here I-JEPA will be used as the ssl_model. At the moment, it's resnet50, loaded in guided_diffusion_rcdm.get_ssl_models.get_model. See also the Notes.
                 model_kwargs["feat"] = feat
                 sample = self.sample_fn(
                     self.rcdm_model,
